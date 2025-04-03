@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#1d1f21"
+    android:gravity="center"
+    android:textColor="#d1d1d1">
+
+    <EditText
+        android:id="@+id/login"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+
+        android:ems="10"
+        android:inputType="text"
+        android:text=""
+        android:hint="Login: "/>
+
+    <EditText
+        android:id="@+id/pwd"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:inputType="textPassword"
+
+        android:hint="Password: "/>
+
+    <Button
+        android:id="@+id/btn_login"
+        android:layout_gravity="start"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="#4a148c"
+        android:text="Login" />
+
+    <Button
+        android:id="@+id/btn_make_cadastro"
+        android:layout_gravity="start"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="#4a148c"
+        android:text="Cadastrar-se" />
+</LinearLayout>
