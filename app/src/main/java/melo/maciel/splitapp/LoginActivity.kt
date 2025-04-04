@@ -10,6 +10,7 @@ import androidx.activity.enableEdgeToEdge
 import melo.maciel.splitapp.API.API_DATA
 import melo.maciel.splitapp.API.Api_Interface
 import melo.maciel.splitapp.databinding.LoginLayoutBinding
+import melo.maciel.splitapp.encryption.Encryption
 import okhttp3.OkHttpClient
 import retrofit2.Call
 import retrofit2.Callback
@@ -20,6 +21,7 @@ import java.security.cert.X509Certificate
 import javax.net.ssl.SSLContext
 import javax.net.ssl.TrustManager
 import javax.net.ssl.X509TrustManager
+import java.security.MessageDigest
 
 
 class LoginActivity : ComponentActivity(), View.OnClickListener {
@@ -69,11 +71,12 @@ class LoginActivity : ComponentActivity(), View.OnClickListener {
         when (v?.id) {
             R.id.btn_login -> {
                 val login = binding.login.text.toString()
-                val senha = binding.pwd.text.toString()
+                val pwd = binding.pwd.text.toString()
 
-                if (login.isNotEmpty() && senha.isNotEmpty()) {
+                if (login.isNotEmpty() && pwd.isNotEmpty()) {
                     // Realizar a requisição de login
-                    loginUser(login, senha)
+                    val pwd_cript = Encryption().sha256(pwd)
+                    loginUser(login, pwd_cript)
                 } else {
                     Toast.makeText(this, "Por favor, preencha os campos de login e senha", Toast.LENGTH_SHORT).show()
                 }

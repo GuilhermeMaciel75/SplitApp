@@ -13,6 +13,7 @@ import melo.maciel.splitapp.API.GroupData
 import melo.maciel.splitapp.API.UserData
 import melo.maciel.splitapp.databinding.CreateGroupLayoutBinding
 import melo.maciel.splitapp.databinding.MainLayoutBinding
+import melo.maciel.splitapp.encryption.Encryption
 import okhttp3.OkHttpClient
 import retrofit2.Call
 import retrofit2.Callback
@@ -74,7 +75,8 @@ class CreateGroupActivity: ComponentActivity(), View.OnClickListener  {
 
                 if (name.isNotEmpty() && description.isNotEmpty() && pwd.isNotEmpty() && pwd_confirm.isNotEmpty() && n_participants.isNotEmpty()) {
                     if (pwd == pwd_confirm) {
-                        val userDataGroup = GroupData(name, description, pwd, n_participants.toInt())
+                        val pwd_cript = Encryption().sha256(pwd)
+                        val userDataGroup = GroupData(name, description, pwd_cript, n_participants.toInt())
                         registerGroupPost(userDataGroup)
                     } else {
                         Toast.makeText(this, "As senhas não coincidem", Toast.LENGTH_SHORT).show()
@@ -100,13 +102,13 @@ class CreateGroupActivity: ComponentActivity(), View.OnClickListener  {
                     Log.d("GroupRegister-APP", "Cadastro bem-sucedido")
 
                     // Volta para a tela de Login
-                    //try {
-                    //    val intent = Intent(this@RegisterActivity, LoginActivity::class.java)
-                    //    startActivity(intent)
-                    //} catch (e: Exception) {
-                    //    // Captura qualquer erro relacionado à Intent ou à navegação
-                    //    Log.d("Register-APP", "Erro ao iniciar a Activity: ${e.localizedMessage}")
-                    //}
+                    try {
+                       val intent = Intent(this@CreateGroupActivity, GroupActivity::class.java)
+                        startActivity(intent)
+                    } catch (e: Exception) {
+                        // Captura qualquer erro relacionado à Intent ou à navegação
+                        Log.d("GroupRegister-APP", "Erro ao iniciar a Activity: ${e.localizedMessage}")
+                    }
 
                 } else {
                     // Erro na resposta

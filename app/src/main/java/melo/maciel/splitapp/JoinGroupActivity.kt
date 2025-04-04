@@ -12,6 +12,7 @@ import melo.maciel.splitapp.API.Api_Interface
 import melo.maciel.splitapp.API.GroupLogin
 import melo.maciel.splitapp.databinding.JoinGroupLayoutBinding
 import melo.maciel.splitapp.databinding.MainLayoutBinding
+import melo.maciel.splitapp.encryption.Encryption
 import okhttp3.OkHttpClient
 import retrofit2.Call
 import retrofit2.Callback
@@ -69,11 +70,12 @@ class JoinGroupActivity: ComponentActivity(), View.OnClickListener  {
 
             R.id.btn_join_group-> {
                 val login = binding.loginGroup.text.toString()
-                val senha = binding.pwdLoginGroup.text.toString()
+                val pwd = binding.pwdLoginGroup.text.toString()
 
-                if (login.isNotEmpty() && senha.isNotEmpty()) {
+                if (login.isNotEmpty() && pwd.isNotEmpty()) {
                     // Realizar a requisição de login
-                    loginGroup(login, senha)
+                    val pwd_cript = Encryption().sha256(pwd)
+                    loginGroup(login, pwd_cript)
                 } else {
                     Toast.makeText(this, "Por favor, preencha os campos de login e senha", Toast.LENGTH_SHORT).show()
                 }
@@ -94,13 +96,13 @@ class JoinGroupActivity: ComponentActivity(), View.OnClickListener  {
                     Log.d("JOIN-GROUP-APP", "Login bem-sucedido")
 
                     // Volta para a tela de Login
-                    //try {
-                    //    val intent = Intent(this@LoginActivity, MainActivity::class.java)
-                    //    startActivity(intent)
-                    //} catch (e: Exception) {
-                    //    // Captura qualquer erro relacionado à Intent ou à navegação
-                    //    Log.d("Login-APP", "Erro ao iniciar a Activity: ${e.localizedMessage}")
-                    //}
+                    try {
+                        val intent = Intent(this@JoinGroupActivity, GroupActivity::class.java)
+                        startActivity(intent)
+                    } catch (e: Exception) {
+                        // Captura qualquer erro relacionado à Intent ou à navegação
+                        Log.d("JOIN-GROUP-APP", "Erro ao iniciar a Activity: ${e.localizedMessage}")
+                    }
 
                 } else {
                     // Erro na resposta

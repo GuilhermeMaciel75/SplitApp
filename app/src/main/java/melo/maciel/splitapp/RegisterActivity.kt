@@ -12,6 +12,7 @@ import melo.maciel.splitapp.API.Api_Interface
 import melo.maciel.splitapp.databinding.RegisterLayoutBinding
 import melo.maciel.splitapp.API.API_DATA
 import melo.maciel.splitapp.API.UserData
+import melo.maciel.splitapp.encryption.Encryption
 import okhttp3.OkHttpClient
 import retrofit2.Call
 import retrofit2.Callback
@@ -63,15 +64,16 @@ class RegisterActivity : ComponentActivity(), View.OnClickListener {
     override fun onClick(v: View?) {
         when (v?.id) {
             R.id.btn_cadastro -> {
-                val nome = binding.nome.text.toString()
+                val name = binding.nome.text.toString()
                 val login = binding.loginCadastro.text.toString()
-                val senha = binding.pwdCadastro.text.toString()
-                val senhaConfirmacao = binding.pwdConfirmacaoCadastro.text.toString()
+                val pwd = binding.pwdCadastro.text.toString()
+                val pwd_confirm = binding.pwdConfirmacaoCadastro.text.toString()
                 val email = binding.emailCadastro.text.toString()
 
-                if (nome.isNotEmpty() && login.isNotEmpty() && senha.isNotEmpty() && senhaConfirmacao.isNotEmpty() && email.isNotEmpty()) {
-                    if (senha == senhaConfirmacao) {
-                        val userData = UserData(nome, login, senha, email)
+                if (name.isNotEmpty() && login.isNotEmpty() && pwd.isNotEmpty() && pwd_confirm.isNotEmpty() && email.isNotEmpty()) {
+                    if (pwd == pwd_confirm) {
+                        val pwd_cript = Encryption().sha256(pwd)
+                        val userData = UserData(name, login, pwd_cript, email)
                         registerUserPost(userData)
                     } else {
                         Toast.makeText(this, "As senhas não coincidem", Toast.LENGTH_SHORT).show()
