@@ -1,6 +1,7 @@
 package melo.maciel.splitapp
 
 
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.View
@@ -11,7 +12,6 @@ import melo.maciel.splitapp.API.Api_Interface
 import melo.maciel.splitapp.databinding.RegisterLayoutBinding
 import melo.maciel.splitapp.API.API_DATA
 import melo.maciel.splitapp.API.UserData
-import melo.maciel.splitapp.R
 import okhttp3.OkHttpClient
 import retrofit2.Call
 import retrofit2.Callback
@@ -96,6 +96,16 @@ class RegisterActivity : ComponentActivity(), View.OnClickListener {
                     val apiDatares = response.body()
                     Toast.makeText(applicationContext, "Cadastro bem-sucedido", Toast.LENGTH_LONG).show()
                     Log.d("Register-APP", "Cadastro bem-sucedido")
+
+                    // Volta para a tela de Login
+                    try {
+                        val intent = Intent(this@RegisterActivity, LoginActivity::class.java)
+                        startActivity(intent)
+                    } catch (e: Exception) {
+                        // Captura qualquer erro relacionado à Intent ou à navegação
+                        Log.d("Register-APP", "Erro ao iniciar a Activity: ${e.localizedMessage}")
+                    }
+
                 } else {
                     // Erro na resposta
                     Toast.makeText(applicationContext, "Erro ao registrar usuário: ${response.message()}", Toast.LENGTH_LONG).show()

@@ -9,7 +9,7 @@
     android:textColor="#E0E0E0">
 
     <EditText
-        android:id="@+id/nome"
+        android:id="@+id/nome_grupo"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:textColor="#E0E0E0"
@@ -17,10 +17,10 @@
         android:padding="16dp"
         android:textSize="16sp"
         android:layout_marginBottom="16dp"
-        android:hint="Name" />
+        android:hint="Nome do Grupo: " />
 
     <EditText
-        android:id="@+id/login_cadastro"
+        android:id="@+id/descricao_grupo"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:textColor="#E0E0E0"
@@ -28,10 +28,10 @@
         android:padding="16dp"
         android:textSize="16sp"
         android:layout_marginBottom="16dp"
-        android:hint="Login" />
+        android:hint="Descricão do Grupo" />
 
     <EditText
-        android:id="@+id/email_cadastro"
+        android:id="@+id/pwd_group"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:textColor="#E0E0E0"
@@ -39,10 +39,10 @@
         android:padding="16dp"
         android:textSize="16sp"
         android:layout_marginBottom="16dp"
-        android:hint="Email" />
+        android:hint="Password: " />
 
     <EditText
-        android:id="@+id/pwd_cadastro"
+        android:id="@+id/pwd_confirmacao_group"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:textColor="#E0E0E0"
@@ -50,10 +50,10 @@
         android:padding="16dp"
         android:textSize="16sp"
         android:layout_marginBottom="16dp"
-        android:hint="Password" />
+        android:hint="Confirm Password: " />
 
     <EditText
-        android:id="@+id/pwd_confirmacao_cadastro"
+        android:id="@+id/numero_participantes_grupo"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:textColor="#E0E0E0"
@@ -61,16 +61,18 @@
         android:padding="16dp"
         android:textSize="16sp"
         android:layout_marginBottom="16dp"
-        android:hint="Confirm Password" />
+        android:inputType="number"
+        android:hint="Numero Participantes: " />
 
     <Button
-        android:id="@+id/btn_cadastro"
+        android:id="@+id/btn_cadastro_group"
         android:layout_width="159dp"
         android:layout_height="wrap_content"
         android:layout_marginBottom="16dp"
         android:background="@drawable/button_border"
         android:padding="16dp"
-        android:text="Register"
+        android:text="Criar Grupo"
         android:textColor="#FFFFFF"
         android:textSize="18sp" />
+
 </LinearLayout>
