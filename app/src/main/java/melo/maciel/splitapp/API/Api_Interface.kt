@@ -17,4 +17,14 @@ interface Api_Interface {
     // registrar um novo usuário com nome, login, senha e email
     @POST("/register")
     fun register(@Body userData: UserData): Call<API_DATA>
+
+    // registrar um novo group
+    @POST("/register/group")
+    fun register(@Body userGroupData: GroupData): Call<API_DATA>
+
+    @GET("/login/group")
+    fun loginGroup(
+        @Query("login") username: String,
+        @Query("pwd") password: String
+    ): Call<GroupLogin>
 }

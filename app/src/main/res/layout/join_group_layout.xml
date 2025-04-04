@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#121212"
+    android:gravity="center"
+    android:padding="16dp"
+    android:textColor="#E0E0E0"> <!-- Texto Branco para Contraste -->
+
+    <!-- Caixa de entrada de login -->
+    <EditText
+    android:id="@+id/login_group"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:hint="Login"
+    android:textColor="#E0E0E0"
+    android:background="@drawable/edit_text_border"
+    android:padding="16dp"
+    android:textSize="16sp"
+    android:layout_marginBottom="16dp" />
+
+    <!-- Caixa de entrada de senha -->
+    <EditText
+    android:id="@+id/pwd_login_group"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:hint="Password"
+    android:textColor="#E0E0E0"
+    android:background="@drawable/edit_text_border"
+    android:padding="16dp"
+    android:textSize="16sp"
+    android:inputType="textPassword"
+    android:layout_marginBottom="32dp" />
+
+    <!-- Botão de login -->
+    <Button
+        android:id="@+id/btn_join_group"
+        android:layout_width="159dp"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="16dp"
+        android:background="@drawable/button_border"
+        android:padding="16dp"
+        android:text="Entrar no Grupo"
+        android:textColor="#FFFFFF"
+        android:textSize="18sp" />
+
+
+</LinearLayout>

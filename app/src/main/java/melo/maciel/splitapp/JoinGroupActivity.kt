@@ -9,9 +9,8 @@ import androidx.activity.ComponentActivity
 import androidx.activity.enableEdgeToEdge
 import melo.maciel.splitapp.API.API_DATA
 import melo.maciel.splitapp.API.Api_Interface
-import melo.maciel.splitapp.API.GroupData
-import melo.maciel.splitapp.API.UserData
-import melo.maciel.splitapp.databinding.CreateGroupLayoutBinding
+import melo.maciel.splitapp.API.GroupLogin
+import melo.maciel.splitapp.databinding.JoinGroupLayoutBinding
 import melo.maciel.splitapp.databinding.MainLayoutBinding
 import okhttp3.OkHttpClient
 import retrofit2.Call
@@ -24,15 +23,18 @@ import javax.net.ssl.SSLContext
 import javax.net.ssl.TrustManager
 import javax.net.ssl.X509TrustManager
 
-class CreateGroupActivity: ComponentActivity(), View.OnClickListener  {
-    lateinit var binding: CreateGroupLayoutBinding
+class JoinGroupActivity: ComponentActivity(), View.OnClickListener  {
+
+    lateinit var binding: JoinGroupLayoutBinding
     lateinit var apiInterface: Api_Interface
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
-        binding = CreateGroupLayoutBinding.inflate(layoutInflater)
+        binding = JoinGroupLayoutBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
+        //Cria conexão com a API
 
         // Criar um cliente OkHttp que ignora o SSL
         val trustAllCertificates: TrustManager = object : X509TrustManager {
@@ -58,67 +60,59 @@ class CreateGroupActivity: ComponentActivity(), View.OnClickListener  {
 
         apiInterface = retrofit.create(Api_Interface::class.java)
 
-        binding.btnCadastroGroup.setOnClickListener(this)
-
+        binding.btnJoinGroup.setOnClickListener(this)
     }
 
+
     override fun onClick(v:View?) {
-
         when (v?.id) {
-            R.id.btn_cadastro_group -> {
-                val name = binding.nomeGrupo.text.toString()
-                val description = binding.descricaoGrupo.text.toString()
-                val pwd = binding.pwdGroup.text.toString()
-                val pwd_confirm = binding.pwdConfirmacaoGroup.text.toString()
-                val n_participants = binding.numeroParticipantesGrupo.text.toString()
 
-                if (name.isNotEmpty() && description.isNotEmpty() && pwd.isNotEmpty() && pwd_confirm.isNotEmpty() && n_participants.isNotEmpty()) {
-                    if (pwd == pwd_confirm) {
-                        val userDataGroup = GroupData(name, description, pwd, n_participants.toInt())
-                        registerGroupPost(userDataGroup)
-                    } else {
-                        Toast.makeText(this, "As senhas não coincidem", Toast.LENGTH_SHORT).show()
-                        Log.d("GroupRegister-APP", "As senhas não coincidem")
-                    }
+            R.id.btn_join_group-> {
+                val login = binding.loginGroup.text.toString()
+                val senha = binding.pwdLoginGroup.text.toString()
+
+                if (login.isNotEmpty() && senha.isNotEmpty()) {
+                    // Realizar a requisição de login
+                    loginGroup(login, senha)
                 } else {
-                    Toast.makeText(this, "Por favor, preencha todos os campos", Toast.LENGTH_SHORT).show()
-                    Log.d("GroupRegister-APP", "Por favor, preencha todos os campos")
+                    Toast.makeText(this, "Por favor, preencha os campos de login e senha", Toast.LENGTH_SHORT).show()
                 }
             }
         }
     }
 
-    private fun registerGroupPost(userData: GroupData) {
-        val call = apiInterface.register(userData)
 
-        call.enqueue(object : Callback<API_DATA> {
-            override fun onResponse(call: Call<API_DATA>, response: Response<API_DATA>) {
+    private fun loginGroup(group: String, password: String) {
+        val call = apiInterface.loginGroup(group, password)
+
+        call.enqueue(object : Callback<GroupLogin> {
+            override fun onResponse(call: Call<GroupLogin>, response: Response<GroupLogin>) {
                 if (response.isSuccessful) {
                     // Sucesso
                     val apiDatares = response.body()
-                    Toast.makeText(applicationContext, "Cadastro bem-sucedido", Toast.LENGTH_LONG).show()
-                    Log.d("GroupRegister-APP", "Cadastro bem-sucedido")
+                    Toast.makeText(applicationContext, "Login bem-sucedido", Toast.LENGTH_LONG).show()
+                    Log.d("JOIN-GROUP-APP", "Login bem-sucedido")
 
                     // Volta para a tela de Login
                     //try {
-                    //    val intent = Intent(this@RegisterActivity, LoginActivity::class.java)
+                    //    val intent = Intent(this@LoginActivity, MainActivity::class.java)
                     //    startActivity(intent)
                     //} catch (e: Exception) {
                     //    // Captura qualquer erro relacionado à Intent ou à navegação
-                    //    Log.d("Register-APP", "Erro ao iniciar a Activity: ${e.localizedMessage}")
+                    //    Log.d("Login-APP", "Erro ao iniciar a Activity: ${e.localizedMessage}")
                     //}
 
                 } else {
                     // Erro na resposta
-                    Toast.makeText(applicationContext, "Erro ao registrar usuário: ${response.message()}", Toast.LENGTH_LONG).show()
-                    Log.d("GroupRegister-APP", "Erro ao registrar usuário: ${response.message()}")
+                    Toast.makeText(applicationContext, "Erro no login: ${response.message()}", Toast.LENGTH_LONG).show()
+                    Log.d("JOIN-GROUP-APP", "Erro no login: ${response.message()}")
                 }
             }
 
-            override fun onFailure(call: Call<API_DATA>, t: Throwable) {
+            override fun onFailure(call: Call<GroupLogin>, t: Throwable) {
                 // Falha na requisição
                 Toast.makeText(applicationContext, "Falha na requisição: ${t.localizedMessage}", Toast.LENGTH_LONG).show()
-                Log.d("GroupRegister-APP", "Falha na requisição: ${t.localizedMessage}")
+                Log.d("JOIN-GROUP-APP", "Falha na requisição: ${t.localizedMessage}")
             }
         })
     }

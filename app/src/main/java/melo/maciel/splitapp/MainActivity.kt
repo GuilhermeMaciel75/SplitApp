@@ -35,7 +35,13 @@ class MainActivity: ComponentActivity(), View.OnClickListener {
             }
 
             R.id.btn_entra_grupo -> {
-
+                try {
+                    val intent: Intent = Intent(this, JoinGroupActivity::class.java)
+                    startActivity(intent)
+                } catch (e: Exception) {
+                    // Captura qualquer erro relacionado à Intent ou à navegação
+                    Log.d("MAIN-APP", "Erro ao iniciar a Activity: ${e.localizedMessage}")
+                }
             }
         }
     }
