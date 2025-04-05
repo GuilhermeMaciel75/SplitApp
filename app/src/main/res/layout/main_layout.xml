@@ -10,13 +10,13 @@
     android:textColor="#E0E0E0"
     >
 
-    <ImageView
-        android:id="@+id/imageView"
-        android:layout_width="wrap_content"
-        android:layout_height="358dp"
-        android:layout_gravity="center"
-        android:layout_weight="1"
-        tools:src="@tools:sample/avatars" />
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recyclerViewGroups"
+        android:layout_width="match_parent"
+        android:layout_height="562dp"
+        android:layout_marginTop="24sp">
+
+    </androidx.recyclerview.widget.RecyclerView>
 
 
     <LinearLayout

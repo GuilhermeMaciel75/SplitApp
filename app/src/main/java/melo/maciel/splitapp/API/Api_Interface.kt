@@ -27,4 +27,7 @@ interface Api_Interface {
         @Query("login") username: String,
         @Query("pwd") password: String
     ): Call<GroupLogin>
+
+    @GET("/groups/all")
+    fun getAllGroups(): Call<GroupResponse>
 }

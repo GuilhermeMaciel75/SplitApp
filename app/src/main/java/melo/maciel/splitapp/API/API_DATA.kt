@@ -1,4 +1,5 @@
 package melo.maciel.splitapp.API
+import com.google.gson.annotations.SerializedName
 
 data class API_DATA(
     val login: String,
@@ -24,5 +25,20 @@ data class  GroupLogin(
     val pwd: String,
 )
 
+data class GroupInfo(
+    @SerializedName("id")
+    val id: String,
+    @SerializedName("name")
+    val group_name: String,
+    @SerializedName("description")
+    val group_description: String,
+    @SerializedName("n_participants")
+    val group_number_participants: Int
+)
+
+data class GroupResponse(
+    @SerializedName("groups")
+    val groups: List<GroupInfo>
+)
 
 
