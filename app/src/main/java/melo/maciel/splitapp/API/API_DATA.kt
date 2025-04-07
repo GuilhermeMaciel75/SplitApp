@@ -17,12 +17,14 @@ data class  GroupData(
     val group_name: String,
     val group_description: String,
     val pwd: String,
-    val group_number_participants: Int
+    val group_number_participants: Int,
+    val login: String
 )
 
 data class  GroupLogin(
     val login: String,
     val pwd: String,
+    val login_user : String
 )
 
 data class GroupInfo(

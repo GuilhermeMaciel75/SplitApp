@@ -28,12 +28,21 @@ class JoinGroupActivity: ComponentActivity(), View.OnClickListener  {
 
     lateinit var binding: JoinGroupLayoutBinding
     lateinit var apiInterface: Api_Interface
+    private var loginUser: String? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
         binding = JoinGroupLayoutBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
+        loginUser = intent.getStringExtra("login")
+
+        if (loginUser != null) {
+            Log.d("JOIN-GROUP-APP", "Login recebido: $loginUser")
+        } else {
+            Log.d("JOIN-GROUP-APP", "Nenhum login foi passado")
+        }
 
         //Cria conexão com a API
 
@@ -75,7 +84,7 @@ class JoinGroupActivity: ComponentActivity(), View.OnClickListener  {
                 if (login.isNotEmpty() && pwd.isNotEmpty()) {
                     // Realizar a requisição de login
                     val pwd_cript = Encryption().sha256(pwd)
-                    loginGroup(login, pwd_cript)
+                    loginGroup(login, pwd_cript, loginUser.toString())
                 } else {
                     Toast.makeText(this, "Por favor, preencha os campos de login e senha", Toast.LENGTH_SHORT).show()
                 }
@@ -84,8 +93,8 @@ class JoinGroupActivity: ComponentActivity(), View.OnClickListener  {
     }
 
 
-    private fun loginGroup(group: String, password: String) {
-        val call = apiInterface.loginGroup(group, password)
+    private fun loginGroup(group: String, password: String, loginUser: String) {
+        val call = apiInterface.loginGroup(group, password, loginUser)
 
         call.enqueue(object : Callback<GroupLogin> {
             override fun onResponse(call: Call<GroupLogin>, response: Response<GroupLogin>) {

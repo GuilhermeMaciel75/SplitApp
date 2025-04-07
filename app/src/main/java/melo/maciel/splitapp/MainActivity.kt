@@ -11,6 +11,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import melo.maciel.splitapp.API.Api_Interface
 import melo.maciel.splitapp.API.GroupInfo
+import melo.maciel.splitapp.API.GroupLogin
 import melo.maciel.splitapp.API.GroupResponse
 import melo.maciel.splitapp.Adapter.AdapterGroup
 import melo.maciel.splitapp.databinding.MainLayoutBinding
@@ -30,14 +31,26 @@ class MainActivity : ComponentActivity(), View.OnClickListener {
     lateinit var apiInterface: Api_Interface
     private var groupsCall: Call<GroupResponse>? = null
 
+    private var login: String? = null
+
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
         binding = MainLayoutBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        login = intent.getStringExtra("login")
+
+        if (login != null) {
+            Log.d("MAIN-APP", "Login recebido: $login")
+        } else {
+            Log.d("MAIN-APP", "Nenhum login foi passado")
+        }
+
         binding.btnCriaGrupo.setOnClickListener(this)
         binding.btnEntraGrupo.setOnClickListener(this)
+
 
         // Usando view binding para acessar o RecyclerView
         val recyclerViewGroups = binding.recyclerViewGroups
@@ -107,6 +120,7 @@ class MainActivity : ComponentActivity(), View.OnClickListener {
             R.id.btn_cria_grupo -> {
                 try {
                     val intent = Intent(this, CreateGroupActivity::class.java)
+                    intent.putExtra("login", login)
                     startActivity(intent)
                 } catch (e: Exception) {
                     Log.d("MAIN-APP", "Erro ao iniciar a Activity: ${e.localizedMessage}")
@@ -115,6 +129,7 @@ class MainActivity : ComponentActivity(), View.OnClickListener {
             R.id.btn_entra_grupo -> {
                 try {
                     val intent = Intent(this, JoinGroupActivity::class.java)
+                    intent.putExtra("login", login)
                     startActivity(intent)
                 } catch (e: Exception) {
                     Log.d("MAIN-APP", "Erro ao iniciar a Activity: ${e.localizedMessage}")

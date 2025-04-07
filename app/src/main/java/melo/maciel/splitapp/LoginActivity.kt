@@ -105,9 +105,10 @@ class LoginActivity : ComponentActivity(), View.OnClickListener {
                     Toast.makeText(applicationContext, "Login bem-sucedido", Toast.LENGTH_LONG).show()
                     Log.d("Login-APP", "Login bem-sucedido")
 
-                    // Volta para a tela de Login
+                    Log.d("Login-APP", "Login a ser passado: $username")
                     try {
                         val intent = Intent(this@LoginActivity, MainActivity::class.java)
+                        intent.putExtra("login", username)  // Passando o login como extra
                         startActivity(intent)
                     } catch (e: Exception) {
                         // Captura qualquer erro relacionado à Intent ou à navegação

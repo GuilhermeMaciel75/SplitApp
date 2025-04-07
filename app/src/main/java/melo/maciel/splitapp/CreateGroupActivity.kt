@@ -28,12 +28,21 @@ import javax.net.ssl.X509TrustManager
 class CreateGroupActivity: ComponentActivity(), View.OnClickListener  {
     lateinit var binding: CreateGroupLayoutBinding
     lateinit var apiInterface: Api_Interface
+    private var login: String? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
         binding = CreateGroupLayoutBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
+        login = intent.getStringExtra("login")
+
+        if (login != null) {
+            Log.d("GroupRegister-APP", "Login recebido: $login")
+        } else {
+            Log.d("GroupRegister-APP", "Nenhum login foi passado")
+        }
 
         // Criar um cliente OkHttp que ignora o SSL
         val trustAllCertificates: TrustManager = object : X509TrustManager {
@@ -76,7 +85,8 @@ class CreateGroupActivity: ComponentActivity(), View.OnClickListener  {
                 if (name.isNotEmpty() && description.isNotEmpty() && pwd.isNotEmpty() && pwd_confirm.isNotEmpty() && n_participants.isNotEmpty()) {
                     if (pwd == pwd_confirm) {
                         val pwd_cript = Encryption().sha256(pwd)
-                        val userDataGroup = GroupData(name, description, pwd_cript, n_participants.toInt())
+
+                        val userDataGroup = GroupData(name, description, pwd_cript, n_participants.toInt(), login.toString())
                         registerGroupPost(userDataGroup)
                     } else {
                         Toast.makeText(this, "As senhas não coincidem", Toast.LENGTH_SHORT).show()
