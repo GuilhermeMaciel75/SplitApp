@@ -46,6 +46,7 @@ class MainActivity : ComponentActivity(), View.OnClickListener {
         if (login != null) {
             Log.d("MAIN-APP", "Login recebido: $login")
         } else {
+            login = "Null"
             Log.d("MAIN-APP", "Nenhum login foi passado")
         }
 
@@ -59,7 +60,7 @@ class MainActivity : ComponentActivity(), View.OnClickListener {
 
         // Configurando Adapter
         val listGroups: MutableList<GroupInfo> = mutableListOf()
-        val adapterGroup = AdapterGroup(this, listGroups)
+        val adapterGroup = AdapterGroup(this, listGroups, login!!)
         recyclerViewGroups.adapter = adapterGroup
 
         // Configurando Retrofit e API Interface (mesma lógica usada na LoginActivity)

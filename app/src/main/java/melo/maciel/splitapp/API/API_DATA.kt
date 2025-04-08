@@ -60,4 +60,13 @@ data class Participant(
     val percentage: Double
 )
 
+data class PostSpent(
+    val id_group : String,
+    val type_spent : String,
+    val login_user: String,
+    val spent_description : String,
+    val spent_value : Double,
+    val participants_spent : List<Participant>
+)
+
 

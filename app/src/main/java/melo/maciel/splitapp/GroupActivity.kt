@@ -71,6 +71,8 @@ class GroupActivity: ComponentActivity(), View.OnClickListener  {
         binding.descriptionGroup.text = groupDescription
         binding.partipantsGroup.text = groupParticipants.toString()
 
+        Log.d("GROUP-MAIN-APP", "login: ${login}")
+        Log.d("GROUP-MAIN-APP", "groupId: ${groupId}")
 
         binding.btnAddSpent.setOnClickListener(this)
         binding.btnViewExtract.setOnClickListener(this)
@@ -84,11 +86,11 @@ class GroupActivity: ComponentActivity(), View.OnClickListener  {
                 try {
                     val intent = Intent(this, RegisterSpentActivity::class.java)
                     intent.putExtra("login", login)
-                    intent.putExtra("groupId", groupId)
+                    intent.putExtra("GROUP_ID", groupId)
                     intent.putStringArrayListExtra("GROUP_PARTICIPANTS", participants)
                     startActivity(intent)
                 } catch (e: Exception) {
-                    Log.d("MAIN-APP", "Erro ao iniciar a Activity: ${e.localizedMessage}")
+                    Log.d("GROUP-MAIN-APP", "Erro ao iniciar a Activity: ${e.localizedMessage}")
                 }
             }
 

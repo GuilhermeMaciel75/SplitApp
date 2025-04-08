@@ -12,7 +12,7 @@ import melo.maciel.splitapp.API.GroupInfo
 import melo.maciel.splitapp.GroupActivity
 import melo.maciel.splitapp.R
 
-class AdapterGroup(private val context: Context, private val groups:MutableList<GroupInfo>): RecyclerView.Adapter<AdapterGroup.GroupViewHolder>() {
+class AdapterGroup(private val context: Context, private val groups:MutableList<GroupInfo>, private val login: String): RecyclerView.Adapter<AdapterGroup.GroupViewHolder>() {
     inner class GroupViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val id_group = itemView.findViewById<TextView>(R.id.id_group)
         val name_group = itemView.findViewById<TextView>(R.id.name_group)
@@ -33,6 +33,7 @@ class AdapterGroup(private val context: Context, private val groups:MutableList<
             intent.putExtra("GROUP_NAME", groupInfo.group_name)
             intent.putExtra("GROUP_DESCRIPTION", groupInfo.group_description)
             intent.putExtra("GROUP_PARTICIPANTS_QTD", groupInfo.group_number_participants)
+            intent.putExtra("login", login)
             intent.putStringArrayListExtra("GROUP_PARTICIPANTS", ArrayList(groupInfo.group_participants))
 
 
