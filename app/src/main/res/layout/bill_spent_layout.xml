@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="horizontal"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:padding="16dp"
+    android:gravity="center_vertical">
+
+    <!-- TextView fixo para o nome do participante -->
+    <TextView
+        android:id="@+id/spent_partipant_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Nome do Participante:"
+        android:textSize="18sp"
+        android:textColor="#E0E0E0"
+        android:layout_marginEnd="8dp"
+        android:layout_alignParentStart="true" />
+
+    <!-- EditText para o valor gasto, permitindo input do usuário -->
+    <EditText
+        android:id="@+id/spent_partipant_value"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:padding="16dp"
+        android:textSize="16sp"
+        android:hint="Valor"
+        android:textColor="#E0E0E0"
+        android:layout_marginEnd="8dp"
+        android:background="@drawable/edit_text_border" /> <!-- Fundo com contorno branco -->
+
+    <!-- EditText para a porcentagem, permitindo input do usuário -->
+    <EditText
+        android:id="@+id/spent_partipant_percentenge"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:padding="16dp"
+        android:textSize="16sp"
+        android:textColor="#E0E0E0"
+        android:hint="Porcentagem"
+        android:background="@drawable/edit_text_border" /> <!-- Fundo com contorno branco -->
+</LinearLayout>

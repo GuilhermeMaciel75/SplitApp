@@ -2,12 +2,14 @@ package melo.maciel.splitapp.Adapter
 
 import android.annotation.SuppressLint
 import android.content.Context
+import android.content.Intent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import melo.maciel.splitapp.API.GroupInfo
+import melo.maciel.splitapp.GroupActivity
 import melo.maciel.splitapp.R
 
 class AdapterGroup(private val context: Context, private val groups:MutableList<GroupInfo>): RecyclerView.Adapter<AdapterGroup.GroupViewHolder>() {
@@ -21,6 +23,21 @@ class AdapterGroup(private val context: Context, private val groups:MutableList<
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): GroupViewHolder {
         val item_group = LayoutInflater.from(context).inflate(R.layout.group_info_layout, parent, false)
         val holder = GroupViewHolder(item_group)
+
+        item_group.setOnClickListener{
+            val groupInfo = groups[holder.adapterPosition] // Obtém as informações do grupo clicado
+            val intent = Intent(context, GroupActivity::class.java)
+
+            // Enviando as informações do grupo para a próxima Activity
+            intent.putExtra("GROUP_ID", groupInfo.id)
+            intent.putExtra("GROUP_NAME", groupInfo.group_name)
+            intent.putExtra("GROUP_DESCRIPTION", groupInfo.group_description)
+            intent.putExtra("GROUP_PARTICIPANTS_QTD", groupInfo.group_number_participants)
+            intent.putStringArrayListExtra("GROUP_PARTICIPANTS", ArrayList(groupInfo.group_participants))
+
+
+            context.startActivity(intent)
+        }
         return holder
     }
 

@@ -27,6 +27,10 @@ data class  GroupLogin(
     val login_user : String
 )
 
+data class GetGroup(
+    val login_user : String
+)
+
 data class GroupInfo(
     @SerializedName("id")
     val id: String,
@@ -35,12 +39,25 @@ data class GroupInfo(
     @SerializedName("description")
     val group_description: String,
     @SerializedName("n_participants")
-    val group_number_participants: Int
+    val group_number_participants: Int,
+    @SerializedName("participants")
+    val group_participants: List<String>
 )
 
 data class GroupResponse(
     @SerializedName("groups")
     val groups: List<GroupInfo>
+)
+
+data class GroupUserResponse(
+    @SerializedName("groups")
+    val groups: List<GetGroup>
+)
+
+data class Participant(
+    val name : String,
+    val value : Double = 0.0,
+    val percentage: Double
 )
 
 

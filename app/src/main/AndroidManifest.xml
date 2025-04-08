@@ -57,6 +57,12 @@
             android:theme="@style/Theme.SplitApp">
         </activity>
 
+        <activity android:name=".RegisterSpentActivity"
+            android:exported="true"
+            android:label="@string/app_name"
+            android:theme="@style/Theme.SplitApp">
+        </activity>
+
     </application>
 
 </manifest>

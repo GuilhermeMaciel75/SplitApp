@@ -31,4 +31,9 @@ interface Api_Interface {
 
     @GET("/groups/all")
     fun getAllGroups(): Call<GroupResponse>
+
+    @GET("/groups")
+    fun getUSerGroups(
+        @Query("loginUser") loginUser: String
+    ): Call<GroupResponse>
 }

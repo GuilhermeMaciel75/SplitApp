@@ -1,6 +1,10 @@
 package melo.maciel.splitapp
 
+import android.content.Intent
 import android.os.Bundle
+import android.util.Log
+import android.view.View
+import android.widget.TextView
 import androidx.activity.ComponentActivity
 import androidx.activity.enableEdgeToEdge
 import melo.maciel.splitapp.API.Api_Interface
@@ -13,9 +17,14 @@ import javax.net.ssl.SSLContext
 import javax.net.ssl.TrustManager
 import javax.net.ssl.X509TrustManager
 
-class GroupActivity: ComponentActivity() {
+class GroupActivity: ComponentActivity(), View.OnClickListener  {
     lateinit var binding: GroupLayoutBinding
     lateinit var apiInterface: Api_Interface
+
+    private var login: String? = null
+    private var groupId: String? = null
+    private var participants: ArrayList<String>? = null
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -49,5 +58,43 @@ class GroupActivity: ComponentActivity() {
 
         apiInterface = retrofit.create(Api_Interface::class.java)
 
+        groupId = intent.getStringExtra("GROUP_ID")
+        val groupName = intent.getStringExtra("GROUP_NAME")
+        val groupDescription = intent.getStringExtra("GROUP_DESCRIPTION")
+        val groupParticipants = intent.getIntExtra("GROUP_PARTICIPANTS", 0)
+        login = intent.getStringExtra("login")
+        participants = intent.getStringArrayListExtra("GROUP_PARTICIPANTS")
+
+
+        binding.idGroup.text = groupId
+        binding.nameGroup.text = groupName
+        binding.descriptionGroup.text = groupDescription
+        binding.partipantsGroup.text = groupParticipants.toString()
+
+
+        binding.btnAddSpent.setOnClickListener(this)
+        binding.btnViewExtract.setOnClickListener(this)
+    }
+
+    override fun onClick(v:View?) {
+
+        when (v?.id) {
+
+            R.id.btn_add_spent -> {
+                try {
+                    val intent = Intent(this, RegisterSpentActivity::class.java)
+                    intent.putExtra("login", login)
+                    intent.putExtra("groupId", groupId)
+                    intent.putStringArrayListExtra("GROUP_PARTICIPANTS", participants)
+                    startActivity(intent)
+                } catch (e: Exception) {
+                    Log.d("MAIN-APP", "Erro ao iniciar a Activity: ${e.localizedMessage}")
+                }
+            }
+
+            R.id.btn_view_Extract -> {
+
+            }
+        }
     }
 }

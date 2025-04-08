@@ -10,6 +10,7 @@ import androidx.activity.enableEdgeToEdge
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import melo.maciel.splitapp.API.Api_Interface
+import melo.maciel.splitapp.API.GetGroup
 import melo.maciel.splitapp.API.GroupInfo
 import melo.maciel.splitapp.API.GroupLogin
 import melo.maciel.splitapp.API.GroupResponse
@@ -85,7 +86,7 @@ class MainActivity : ComponentActivity(), View.OnClickListener {
         apiInterface = retrofit.create(Api_Interface::class.java)
 
         // Chamada à API para obter todos os grupos
-        groupsCall = apiInterface.getAllGroups()
+        groupsCall = apiInterface.getUSerGroups(login.toString())
         groupsCall?.enqueue(object : Callback<GroupResponse> {
             override fun onResponse(call: Call<GroupResponse>, response: Response<GroupResponse>) {
                 // Verifica se a Activity ainda está ativa
