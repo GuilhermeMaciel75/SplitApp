@@ -8,6 +8,15 @@
     android:padding="16dp"
     android:textColor="#E0E0E0">
 
+    <!-- Label e EditText para Tipo Gasto -->
+    <TextView
+        android:text="Tipo Gasto:"
+        android:textColor="#E0E0E0"
+        android:textSize="18sp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp" />
+
     <EditText
         android:id="@+id/type_spent"
         android:layout_width="match_parent"
@@ -17,7 +26,16 @@
         android:padding="16dp"
         android:textSize="16sp"
         android:layout_marginBottom="16dp"
-        android:hint="Tipo Gasto: " />
+        android:hint="Digite o tipo do gasto" />
+
+    <!-- Label e EditText para Descrição do Gasto -->
+    <TextView
+        android:text="Descrição do Gasto:"
+        android:textColor="#E0E0E0"
+        android:textSize="18sp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp" />
 
     <EditText
         android:id="@+id/spent_description"
@@ -28,53 +46,59 @@
         android:padding="16dp"
         android:textSize="16sp"
         android:layout_marginBottom="16dp"
-        android:hint="Descrição do Gasto" />
+        android:hint="Descrição detalhada do gasto" />
 
-    <!-- LinearLayout horizontal para o valor total e o checkbox -->
-    <LinearLayout
+
+    <!-- Label para o Valor Total Gasto -->
+    <TextView
+        android:text="Valor Total Gasto:"
+        android:textColor="#E0E0E0"
+        android:textSize="18sp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:gravity="start|center_vertical"
-        android:layout_marginBottom="16dp">
+        android:layout_marginBottom="8dp" />
 
-        <EditText
-            android:id="@+id/total_value_spent"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:textColor="#E0E0E0"
-            android:background="@drawable/edit_text_border"
-            android:padding="16dp"
-            android:textSize="16sp"
-            android:hint="Valor Total Gasto: "
-            android:layout_marginEnd="8dp" />
+    <!-- EditText para o Valor Total Gasto -->
+    <EditText
+        android:id="@+id/total_value_spent"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/edit_text_border"
+        android:hint="R$ 0,00"
+        android:inputType="numberDecimal|numberSigned"
+        android:padding="16dp"
+        android:textColor="#E0E0E0"
+        android:textSize="16sp" />
 
-        <!-- CheckBox com estilo melhorado -->
-        <CheckBox
-            android:id="@+id/checkbox_divide_equally"
-            android:layout_width="wrap_content"
-            android:layout_height="48dp"
-            android:text="Dividir Igualmente?"
-            android:textColor="#E0E0E0"
-            android:buttonTint="#FFFFFF" />
-    </LinearLayout>
+    <!-- CheckBox para dividir igualmente -->
+    <CheckBox
+        android:id="@+id/checkbox_divide_equally"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Dividir Igualmente?"
+        android:textColor="#E0E0E0"
+        android:buttonTint="#FFFFFF"
+        android:layout_marginTop="16dp"
+        android:checked="true"
+        android:layout_gravity="start"/>
 
+    <!-- RecyclerView para os extratos -->
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerViewSpent"
         android:layout_width="match_parent"
-        android:layout_height="562dp"
-        android:layout_marginTop="24sp" />
+        android:layout_height="0dp"
+        android:layout_marginTop="24dp"
+        android:layout_weight="1" />
 
+    <!-- Botão para salvar despesa -->
     <Button
         android:id="@+id/btn_save_spent"
-        android:layout_width="159dp"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="16dp"
         android:background="@drawable/button_border"
         android:padding="16dp"
         android:text="Salvar Conta"
         android:textColor="#FFFFFF"
-        android:textSize="18sp" />
-
+        android:textSize="18sp"
+        android:layout_marginBottom="16dp" />
 </LinearLayout>

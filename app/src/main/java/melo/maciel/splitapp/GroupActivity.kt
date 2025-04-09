@@ -73,7 +73,7 @@ class GroupActivity: ComponentActivity(), View.OnClickListener  {
         groupId = intent.getStringExtra("GROUP_ID")
         val groupName = intent.getStringExtra("GROUP_NAME")
         val groupDescription = intent.getStringExtra("GROUP_DESCRIPTION")
-        val groupParticipants = intent.getIntExtra("GROUP_PARTICIPANTS", 0)
+        val groupParticipants = intent.getIntExtra("GROUP_PARTICIPANTS_QTD", 0)
         login = intent.getStringExtra("login")
         participants = intent.getStringArrayListExtra("GROUP_PARTICIPANTS")
 
@@ -81,7 +81,7 @@ class GroupActivity: ComponentActivity(), View.OnClickListener  {
         binding.idGroup.text = groupId
         binding.nameGroup.text = groupName
         binding.descriptionGroup.text = groupDescription
-        binding.partipantsGroup.text = groupParticipants.toString()
+        binding.partipantsNumberGroup.text = groupParticipants.toString()
 
         Log.d("GROUP-MAIN-APP", "login: ${login}")
         Log.d("GROUP-MAIN-APP", "groupId: ${groupId}")
@@ -112,6 +112,7 @@ class GroupActivity: ComponentActivity(), View.OnClickListener  {
                     if (groupResponse != null) {
                         listParticipants.clear()
                         listParticipants.addAll(groupResponse.participants)
+                        binding.userSpent.text = groupResponse.total_spent.toString()
                         adapterGroup.notifyDataSetChanged()
                     }
                 } else {

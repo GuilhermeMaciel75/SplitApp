@@ -2,6 +2,8 @@ package melo.maciel.splitapp
 
 import android.content.Intent
 import android.os.Bundle
+import android.text.Editable
+import android.text.TextWatcher
 import android.view.View
 import androidx.activity.ComponentActivity
 import androidx.activity.enableEdgeToEdge
@@ -22,8 +24,12 @@ import javax.net.ssl.SSLContext
 import javax.net.ssl.TrustManager
 import javax.net.ssl.X509TrustManager
 import android.util.Log
+import android.widget.EditText
 import android.widget.Toast
 import melo.maciel.splitapp.API.API_DATA
+import java.math.BigDecimal
+import java.text.NumberFormat
+import java.util.Locale
 
 class RegisterSpentActivity : ComponentActivity(), View.OnClickListener {
     lateinit var binding: RegisterSpentLayoutBinding
@@ -53,7 +59,8 @@ class RegisterSpentActivity : ComponentActivity(), View.OnClickListener {
 
         // Usando view binding para acessar o RecyclerView
         val recyclerViewGroups = binding.recyclerViewSpent
-        recyclerViewGroups.layoutManager = LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
+        recyclerViewGroups.layoutManager =
+            LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
 
         val listParticipants: MutableList<Participant> = mutableListOf()
 
@@ -104,7 +111,8 @@ class RegisterSpentActivity : ComponentActivity(), View.OnClickListener {
         when (v?.id) {
             R.id.btn_save_spent -> {
                 // Obter os dados dos participantes digitados
-                val updatedParticipants = (binding.recyclerViewSpent.adapter as AdapterSpent).participants
+                val updatedParticipants =
+                    (binding.recyclerViewSpent.adapter as AdapterSpent).participants
 
                 val spentValueString = binding.totalValueSpent.text.toString()
 
@@ -145,7 +153,11 @@ class RegisterSpentActivity : ComponentActivity(), View.OnClickListener {
                 if (response.isSuccessful) {
                     // Sucesso
                     val apiDataRes = response.body()
-                    Toast.makeText(applicationContext, "Gasto registrado com sucesso", Toast.LENGTH_LONG).show()
+                    Toast.makeText(
+                        applicationContext,
+                        "Gasto registrado com sucesso",
+                        Toast.LENGTH_LONG
+                    ).show()
                     Log.d("RegisterSpent-APP", "Gasto registrado com sucesso")
 
                     // Caso queira fazer alguma ação após o sucesso, como redirecionar o usuário
@@ -154,23 +166,33 @@ class RegisterSpentActivity : ComponentActivity(), View.OnClickListener {
                         startActivity(intent)
                     } catch (e: Exception) {
                         // Captura qualquer erro relacionado à Intent ou navegação
-                        Log.d("RegisterSpent-APP", "Erro ao iniciar a Activity: ${e.localizedMessage}")
+                        Log.d(
+                            "RegisterSpent-APP",
+                            "Erro ao iniciar a Activity: ${e.localizedMessage}"
+                        )
                     }
 
                 } else {
                     // Erro na resposta
-                    Toast.makeText(applicationContext, "Erro ao registrar gasto: ${response.message()}", Toast.LENGTH_LONG).show()
+                    Toast.makeText(
+                        applicationContext,
+                        "Erro ao registrar gasto: ${response.message()}",
+                        Toast.LENGTH_LONG
+                    ).show()
                     Log.d("RegisterSpent-APP", "Erro ao registrar gasto: ${response.message()}")
                 }
             }
 
             override fun onFailure(call: Call<API_DATA>, t: Throwable) {
                 // Falha na requisição
-                Toast.makeText(applicationContext, "Falha na requisição: ${t.localizedMessage}", Toast.LENGTH_LONG).show()
+                Toast.makeText(
+                    applicationContext,
+                    "Falha na requisição: ${t.localizedMessage}",
+                    Toast.LENGTH_LONG
+                ).show()
                 Log.d("RegisterSpent-APP", "Falha na requisição: ${t.localizedMessage}")
             }
         })
     }
 }
-
 

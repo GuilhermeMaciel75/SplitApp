@@ -10,38 +10,56 @@
     android:padding="16dp"
     android:textColor="#E0E0E0"> <!-- Texto Branco para Contraste -->
 
-    <!-- Caixa de entrada de login -->
-
+    <!-- Imagem do logo -->
     <ImageView
         android:id="@+id/imageView"
         android:layout_width="150dp"
         android:layout_height="150dp"
         android:src="@drawable/logo" />
 
-    <EditText
-    android:id="@+id/login"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:hint="Login"
-    android:textColor="#E0E0E0"
-    android:background="@drawable/edit_text_border"
-    android:padding="16dp"
-    android:textSize="16sp"
-    android:layout_marginBottom="16dp"
-    android:layout_marginTop="24dp"/>
+    <!-- Label e Caixa de entrada de login -->
+    <TextView
+        android:text="Login: "
+        android:textColor="#E0E0E0"
+        android:textSize="18sp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingLeft="5dp"
+        android:paddingTop="16dp"
+        android:layout_marginBottom="8dp" /> <!-- Espaçamento entre label e input -->
 
-    <!-- Caixa de entrada de senha -->
     <EditText
-    android:id="@+id/pwd"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:hint="Password"
-    android:textColor="#E0E0E0"
-    android:background="@drawable/edit_text_border"
-    android:padding="16dp"
-    android:textSize="16sp"
-    android:inputType="textPassword"
-    android:layout_marginBottom="32dp" />
+        android:id="@+id/login"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textColor="#E0E0E0"
+        android:background="@drawable/edit_text_border"
+        android:textSize="16sp"
+        android:padding="16dp"
+        android:layout_marginBottom="16dp"
+        android:hint="Digite seu login" />
+
+    <!-- Label e Caixa de entrada de senha -->
+    <TextView
+        android:text="Senha:"
+        android:textColor="#E0E0E0"
+        android:textSize="18sp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingLeft="5dp"
+        android:layout_marginBottom="8dp" /> <!-- Espaçamento entre label e input -->
+
+    <EditText
+        android:id="@+id/pwd"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textColor="#E0E0E0"
+        android:background="@drawable/edit_text_border"
+        android:padding="16dp"
+        android:textSize="16sp"
+        android:inputType="textPassword"
+        android:layout_marginBottom="32dp"
+        android:hint="Digite sua senha" />
 
     <!-- Botão de login -->
     <Button
@@ -65,6 +83,5 @@
         android:textColor="#FFFFFF"
         android:textSize="18sp"
         android:padding="16dp"/>
-
 
 </LinearLayout>
