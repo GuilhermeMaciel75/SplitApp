@@ -2,44 +2,107 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:orientation="vertical"
+    android:orientation="horizontal"
     android:padding="16dp"
-    android:textColor="#E0E0E0">
+    android:textColor="#E0E0E0"
+    android:background="#121212"> <!-- Cor de fundo escuro para contraste -->
 
+    <!-- Imagem à esquerda, centralizada verticalmente -->
     <ImageView
         android:id="@+id/imageView"
-        android:layout_width="150dp"
-        android:layout_height="150dp"
-        tools:src="@drawable/logo" />
+        android:layout_width="70dp"
+        android:layout_height="match_parent"
+        android:src="@drawable/logo"
+        android:scaleType="centerCrop"
+        android:layout_marginEnd="16dp"
+        android:gravity="center_vertical" /> <!-- Centraliza a imagem verticalmente -->
 
-    <TextView
-        android:id="@+id/id_group"
-        android:layout_width="match_parent"
+    <!-- Container de texto à direita -->
+    <LinearLayout
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:text="TextView"
-        android:textColor="#E0E0E0"/>
+        android:orientation="vertical"
+        android:layout_weight="1"> <!-- O layout de texto ocupa o restante do espaço -->
 
-    <TextView
-        android:id="@+id/name_group"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="TextView"
-        android:textColor="#E0E0E0"/>
+        <!-- Group ID -->
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <TextView
+                android:text="ID do Grupo: "
+                android:textColor="#E0E0E0"
+                android:textSize="16sp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+            <TextView
+                android:id="@+id/id_group"
+                android:text="ID"
+                android:textColor="#E0E0E0"
+                android:textSize="16sp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+        </LinearLayout>
 
-    <TextView
-        android:id="@+id/description_group"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="TextView"
-        android:textColor="#E0E0E0"/>
+        <!-- Group Name -->
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <TextView
+                android:text="Nome do Grupo: "
+                android:textColor="#E0E0E0"
+                android:textSize="16sp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+            <TextView
+                android:id="@+id/name_group"
+                android:text="Nome"
+                android:textColor="#E0E0E0"
+                android:textSize="16sp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+        </LinearLayout>
 
-    <TextView
-        android:id="@+id/partipants_group"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="TextView"
-        android:textColor="#E0E0E0"/>
+        <!-- Group Description -->
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <TextView
+                android:text="Descrição: "
+                android:textColor="#E0E0E0"
+                android:textSize="16sp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+            <TextView
+                android:id="@+id/description_group"
+                android:text="Descrição do grupo"
+                android:textColor="#E0E0E0"
+                android:textSize="16sp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+        </LinearLayout>
 
-
+        <!-- Participants -->
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <TextView
+                android:text="Participantes: "
+                android:textColor="#E0E0E0"
+                android:textSize="16sp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+            <TextView
+                android:id="@+id/partipants_group"
+                android:text="Quantidade"
+                android:textColor="#E0E0E0"
+                android:textSize="16sp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+        </LinearLayout>
+    </LinearLayout>
 </LinearLayout>
+
