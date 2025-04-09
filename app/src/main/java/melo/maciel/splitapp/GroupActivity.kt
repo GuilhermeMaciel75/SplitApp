@@ -5,11 +5,21 @@ import android.os.Bundle
 import android.util.Log
 import android.view.View
 import android.widget.TextView
+import android.widget.Toast
 import androidx.activity.ComponentActivity
 import androidx.activity.enableEdgeToEdge
+import androidx.recyclerview.widget.LinearLayoutManager
 import melo.maciel.splitapp.API.Api_Interface
+import melo.maciel.splitapp.API.ExtractInfo
+import melo.maciel.splitapp.API.GroupResponse
+import melo.maciel.splitapp.API.ParticipantInfo
+import melo.maciel.splitapp.Adapter.AdapterExtract
+import melo.maciel.splitapp.Adapter.AdapterSpent
 import melo.maciel.splitapp.databinding.GroupLayoutBinding
 import okhttp3.OkHttpClient
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import java.security.cert.X509Certificate
@@ -24,6 +34,8 @@ class GroupActivity: ComponentActivity(), View.OnClickListener  {
     private var login: String? = null
     private var groupId: String? = null
     private var participants: ArrayList<String>? = null
+
+    private var groupsCall: Call<ExtractInfo>? = null
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -76,6 +88,46 @@ class GroupActivity: ComponentActivity(), View.OnClickListener  {
 
         binding.btnAddSpent.setOnClickListener(this)
         binding.btnViewExtract.setOnClickListener(this)
+
+        // Usando view binding para acessar o RecyclerView
+        val recyclerViewGroups = binding.recyclerViewExtract
+        recyclerViewGroups.layoutManager = LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
+
+        val listParticipants: MutableList<ParticipantInfo> = mutableListOf()
+
+        // Configurando o Adapter
+        val adapterGroup = AdapterExtract(this, listParticipants)
+        recyclerViewGroups.adapter = adapterGroup
+
+        // Chamada à API para obter todos os grupos
+        groupsCall = apiInterface.getExtract(login.toString(), groupId.toString())
+        groupsCall?.enqueue(object : Callback<ExtractInfo> {
+            override fun onResponse(call: Call<ExtractInfo>, response: Response<ExtractInfo>) {
+                // Verifica se a Activity ainda está ativa
+                if (isFinishing || isDestroyed) return
+
+                if (response.isSuccessful) {
+                    val groupResponse = response.body()
+                    Log.d("GROUP-MAIN-APP", "$groupResponse")
+                    if (groupResponse != null) {
+                        listParticipants.clear()
+                        listParticipants.addAll(groupResponse.participants)
+                        adapterGroup.notifyDataSetChanged()
+                    }
+                } else {
+                    Log.d("GROUP-MAIN-APP", "Erro ao buscar grupos: ${response.message()}")
+                    Toast.makeText(applicationContext, "Erro ao buscar grupos", Toast.LENGTH_SHORT).show()
+                }
+            }
+
+            override fun onFailure(call: Call<ExtractInfo>, t: Throwable) {
+                // Verifica se a Activity ainda está ativa
+                if (isFinishing || isDestroyed) return
+
+                Log.d("GROUP-MAIN-APP", "Falha na chamada da API: ${t.localizedMessage}")
+                Toast.makeText(applicationContext, "Falha na chamada da API", Toast.LENGTH_SHORT).show()
+            }
+        })
     }
 
     override fun onClick(v:View?) {

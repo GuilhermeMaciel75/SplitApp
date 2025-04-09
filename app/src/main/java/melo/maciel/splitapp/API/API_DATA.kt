@@ -69,4 +69,23 @@ data class PostSpent(
     val participants_spent : List<Participant>
 )
 
+data class ParticipantInfo(
+    @SerializedName("participant_name")
+    val participantName: String,
+    @SerializedName("participant_balance")
+    val participantBalance: Float,
+)
+
+
+data class ExtractInfo(
+    @SerializedName("id_group")
+    val id_group: String,
+    @SerializedName("user_login")
+    val user_login: String,
+    @SerializedName("participants")
+    val participants: List<ParticipantInfo>,
+    @SerializedName("total_spent")
+    val total_spent: Float
+)
+
 

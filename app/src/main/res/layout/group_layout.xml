@@ -35,6 +35,19 @@
         android:text="Número de Participantes"
         android:textColor="#E0E0E0"/>
 
+    <TextView
+        android:id="@+id/user_spent"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Total Gasto: R$"
+        android:textColor="#E0E0E0"/>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recyclerViewExtract"
+        android:layout_width="match_parent"
+        android:layout_height="562dp"
+        android:layout_marginTop="24sp" />
+
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

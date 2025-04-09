@@ -2,11 +2,18 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:tools="http://schemas.android.com/tools"
     android:orientation="vertical"
     android:background="#121212"
     android:gravity="center"
     android:padding="16dp"
     android:textColor="#E0E0E0">
+
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="150dp"
+        android:layout_height="150dp"
+        tools:src="@drawable/logo" />
 
     <EditText
         android:id="@+id/nome"
@@ -17,6 +24,7 @@
         android:padding="16dp"
         android:textSize="16sp"
         android:layout_marginBottom="16dp"
+        android:layout_marginTop="24dp"
         android:hint="Name" />
 
     <EditText

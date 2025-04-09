@@ -39,4 +39,11 @@ interface Api_Interface {
 
     @POST("/spent/register")
     fun registerSpent(@Body userPostSpent: PostSpent): Call<API_DATA>
+
+    @GET("/extract")
+    fun getExtract(
+        @Query("loginUser") loginUser: String,
+        @Query("id_group") groupId: String
+    ): Call<ExtractInfo>
+
 }
