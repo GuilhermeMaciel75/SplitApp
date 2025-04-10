@@ -30,7 +30,7 @@
         android:layout_marginEnd="8dp"
         android:background="@drawable/edit_text_border" /> <!-- Fundo com contorno branco -->
 
-    <!-- EditText para a porcentagem, permitindo input do usuário -->
+    <!-- EditText para a porcentagem, permitindo input do usuário
     <EditText
         android:id="@+id/spent_partipant_percentenge"
         android:layout_width="0dp"
@@ -40,5 +40,5 @@
         android:textSize="16sp"
         android:textColor="#E0E0E0"
         android:hint="Porcentagem"
-        android:background="@drawable/edit_text_border" /> <!-- Fundo com contorno branco -->
+        android:background="@drawable/edit_text_border" />  -->
 </LinearLayout>

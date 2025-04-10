@@ -9,6 +9,7 @@ import androidx.activity.ComponentActivity
 import androidx.activity.enableEdgeToEdge
 import melo.maciel.splitapp.API.API_DATA
 import melo.maciel.splitapp.API.Api_Interface
+import melo.maciel.splitapp.API.GroupData
 import melo.maciel.splitapp.API.GroupLogin
 import melo.maciel.splitapp.databinding.JoinGroupLayoutBinding
 import melo.maciel.splitapp.databinding.MainLayoutBinding
@@ -96,8 +97,8 @@ class JoinGroupActivity: ComponentActivity(), View.OnClickListener  {
     private fun loginGroup(group: String, password: String, loginUser: String) {
         val call = apiInterface.loginGroup(group, password, loginUser)
 
-        call.enqueue(object : Callback<GroupLogin> {
-            override fun onResponse(call: Call<GroupLogin>, response: Response<GroupLogin>) {
+        call.enqueue(object : Callback<GroupData> {
+            override fun onResponse(call: Call<GroupData>, response: Response<GroupData>) {
                 if (response.isSuccessful) {
                     // Sucesso
                     val apiDatares = response.body()
@@ -107,6 +108,20 @@ class JoinGroupActivity: ComponentActivity(), View.OnClickListener  {
                     // Volta para a tela de Login
                     try {
                         val intent = Intent(this@JoinGroupActivity, GroupActivity::class.java)
+                        if (apiDatares != null) {
+                            intent.putExtra("GROUP_ID", apiDatares.login)
+                        }
+
+                        if (apiDatares != null) {
+                            intent.putExtra("GROUP_NAME", apiDatares.group_name)
+                        }
+                        if (apiDatares != null) {
+                            intent.putExtra("GROUP_DESCRIPTION", apiDatares.group_description)
+                        }
+                        if (apiDatares != null) {
+                            intent.putExtra("GROUP_PARTICIPANTS_QTD", apiDatares.group_number_participants)
+                        }
+                        intent.putExtra("login", loginUser)
                         startActivity(intent)
                     } catch (e: Exception) {
                         // Captura qualquer erro relacionado à Intent ou à navegação
@@ -120,7 +135,7 @@ class JoinGroupActivity: ComponentActivity(), View.OnClickListener  {
                 }
             }
 
-            override fun onFailure(call: Call<GroupLogin>, t: Throwable) {
+            override fun onFailure(call: Call<GroupData>, t: Throwable) {
                 // Falha na requisição
                 Toast.makeText(applicationContext, "Falha na requisição: ${t.localizedMessage}", Toast.LENGTH_LONG).show()
                 Log.d("JOIN-GROUP-APP", "Falha na requisição: ${t.localizedMessage}")

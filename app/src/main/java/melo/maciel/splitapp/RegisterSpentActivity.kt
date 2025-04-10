@@ -105,6 +105,42 @@ class RegisterSpentActivity : ComponentActivity(), View.OnClickListener {
         apiInterface = retrofit.create(Api_Interface::class.java)
 
         Log.d("RegisterSpent-APP", "login: ${login}")
+
+        binding.totalValueSpent.addTextChangedListener(object : TextWatcher {
+            override fun beforeTextChanged(charSequence: CharSequence?, start: Int, before: Int, after: Int) {
+                // Não precisamos implementar aqui
+            }
+
+            override fun onTextChanged(charSequence: CharSequence?, start: Int, before: Int, after: Int) {
+                // Verificar se a checkbox "Dividir Igualmente" está marcada
+                if (binding.checkboxDivideEqually.isChecked) {
+                    val spentValueString = charSequence.toString()
+
+                    val spentValue = if (spentValueString.isNotEmpty()) {
+                        spentValueString.toDoubleOrNull() ?: 0.0
+                    } else {
+                        0.0
+                    }
+
+                    // Se houver participantes e a checkbox estiver marcada, dividimos o valor igualmente
+                    if (spentValue > 0 && listParticipants.isNotEmpty()) {
+                        val equalShare = spentValue / listParticipants.size
+
+                        // Atualiza os valores dos participantes
+                        listParticipants.forEach { participant ->
+                            participant.value = equalShare
+                        }
+
+                        // Notificar o Adapter para atualizar a visualização
+                        adapterGroup.notifyDataSetChanged()
+                    }
+                }
+            }
+
+            override fun afterTextChanged(editable: Editable?) {
+                // Não precisamos implementar aqui
+            }
+        })
     }
 
     override fun onClick(v: View?) {

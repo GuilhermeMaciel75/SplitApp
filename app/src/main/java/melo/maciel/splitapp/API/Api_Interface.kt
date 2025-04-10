@@ -20,14 +20,14 @@ interface Api_Interface {
 
     // registrar um novo group
     @POST("/register/group")
-    fun register(@Body userGroupData: GroupData): Call<API_DATA>
+    fun register(@Body userGroupData: GroupData): Call<GroupResponseRegister>
 
     @GET("/login/group")
     fun loginGroup(
         @Query("login") username: String,
         @Query("pwd") password: String,
         @Query("loginUser") loginUser: String
-    ): Call<GroupLogin>
+    ): Call<GroupData>
 
     @GET("/groups/all")
     fun getAllGroups(): Call<GroupResponse>

@@ -15,7 +15,7 @@ class AdapterSpent(private val context: Context, val participants: MutableList<P
     inner class SpentViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val particpant_name = itemView.findViewById<TextView>(R.id.spent_partipant_name)
         val partipant_value = itemView.findViewById<EditText>(R.id.spent_partipant_value)
-        val partipant_percentege = itemView.findViewById<EditText>(R.id.spent_partipant_percentenge)
+        //val partipant_percentege = itemView.findViewById<EditText>(R.id.spent_partipant_percentenge)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): SpentViewHolder {
@@ -29,7 +29,7 @@ class AdapterSpent(private val context: Context, val participants: MutableList<P
         val participant = participants[position]
         holder.particpant_name.text = participant.name
         holder.partipant_value.setText(String.format("%.2f", participant.value))
-        holder.partipant_percentege.setText(String.format("%.2f", participant.percentage))
+        //holder.partipant_percentege.setText(String.format("%.2f", participant.percentage))
 
         // Atualizar o valor do participante quando o valor for alterado no EditText
         holder.partipant_value.setOnFocusChangeListener { _, hasFocus ->
@@ -39,12 +39,13 @@ class AdapterSpent(private val context: Context, val participants: MutableList<P
             }
         }
 
+        /*
         holder.partipant_percentege.setOnFocusChangeListener { _, hasFocus ->
             if (!hasFocus) {
                 val updatedPercentage = holder.partipant_percentege.text.toString().toDoubleOrNull() ?: 0.0
                 participants[position] = participant.copy(percentage = updatedPercentage)
             }
-        }
+        }*/
     }
 
     override fun getItemCount(): Int = participants.size

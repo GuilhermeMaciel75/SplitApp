@@ -56,7 +56,7 @@ data class GroupUserResponse(
 
 data class Participant(
     val name : String,
-    val value : Double = 0.0,
+    var value : Double = 0.0,
     val percentage: Double
 )
 
@@ -87,5 +87,11 @@ data class ExtractInfo(
     @SerializedName("total_spent")
     val total_spent: Float
 )
+
+data class GroupResponseRegister(
+    val message: String,
+    val id_group: String,
+)
+
 
 

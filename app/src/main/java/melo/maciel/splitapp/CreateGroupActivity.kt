@@ -10,6 +10,7 @@ import androidx.activity.enableEdgeToEdge
 import melo.maciel.splitapp.API.API_DATA
 import melo.maciel.splitapp.API.Api_Interface
 import melo.maciel.splitapp.API.GroupData
+import melo.maciel.splitapp.API.GroupResponseRegister
 import melo.maciel.splitapp.API.UserData
 import melo.maciel.splitapp.databinding.CreateGroupLayoutBinding
 import melo.maciel.splitapp.databinding.MainLayoutBinding
@@ -103,17 +104,25 @@ class CreateGroupActivity: ComponentActivity(), View.OnClickListener  {
     private fun registerGroupPost(userData: GroupData) {
         val call = apiInterface.register(userData)
 
-        call.enqueue(object : Callback<API_DATA> {
-            override fun onResponse(call: Call<API_DATA>, response: Response<API_DATA>) {
+        call.enqueue(object : Callback<GroupResponseRegister> {
+            override fun onResponse(call: Call<GroupResponseRegister>, response: Response<GroupResponseRegister>) {
                 if (response.isSuccessful) {
                     // Sucesso
                     val apiDatares = response.body()
                     Toast.makeText(applicationContext, "Cadastro bem-sucedido", Toast.LENGTH_LONG).show()
-                    Log.d("GroupRegister-APP", "Cadastro bem-sucedido")
+                    Log.d("GroupRegister-APP", "Cadastro bem-sucedido ${apiDatares}")
 
                     // Volta para a tela de Login
                     try {
                        val intent = Intent(this@CreateGroupActivity, GroupActivity::class.java)
+                        if (apiDatares != null) {
+                            intent.putExtra("GROUP_ID", apiDatares.id_group)
+                        }
+                        intent.putExtra("GROUP_NAME", userData.group_name)
+                        intent.putExtra("GROUP_DESCRIPTION", userData.group_description)
+                        intent.putExtra("GROUP_PARTICIPANTS_QTD", userData.group_number_participants)
+                        intent.putExtra("login", login)
+                        //intent.putStringArrayListExtra("GROUP_PARTICIPANTS", ArrayList(userData.group_participants))
                         startActivity(intent)
                     } catch (e: Exception) {
                         // Captura qualquer erro relacionado à Intent ou à navegação
@@ -127,7 +136,7 @@ class CreateGroupActivity: ComponentActivity(), View.OnClickListener  {
                 }
             }
 
-            override fun onFailure(call: Call<API_DATA>, t: Throwable) {
+            override fun onFailure(call: Call<GroupResponseRegister>, t: Throwable) {
                 // Falha na requisição
                 Toast.makeText(applicationContext, "Falha na requisição: ${t.localizedMessage}", Toast.LENGTH_LONG).show()
                 Log.d("GroupRegister-APP", "Falha na requisição: ${t.localizedMessage}")
