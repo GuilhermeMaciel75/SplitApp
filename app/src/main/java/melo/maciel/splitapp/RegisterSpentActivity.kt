@@ -199,6 +199,8 @@ class RegisterSpentActivity : ComponentActivity(), View.OnClickListener {
                     // Caso queira fazer alguma ação após o sucesso, como redirecionar o usuário
                     try {
                         val intent = Intent(this@RegisterSpentActivity, GroupActivity::class.java)
+                        intent.putExtra("GROUP_ID", groupId)
+                        intent.putExtra("login", login)
                         startActivity(intent)
                     } catch (e: Exception) {
                         // Captura qualquer erro relacionado à Intent ou navegação

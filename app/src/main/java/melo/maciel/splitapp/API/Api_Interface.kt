@@ -37,6 +37,13 @@ interface Api_Interface {
         @Query("loginUser") loginUser: String
     ): Call<GroupResponse>
 
+    @GET("/group/info")
+    fun getInfoGroup(
+        @Query("loginUser") loginUser: String,
+        @Query("id_group") groupId: String
+
+    ): Call<GroupResponse>
+
     @POST("/spent/register")
     fun registerSpent(@Body userPostSpent: PostSpent): Call<API_DATA>
 

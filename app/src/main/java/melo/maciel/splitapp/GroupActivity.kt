@@ -36,6 +36,7 @@ class GroupActivity: ComponentActivity(), View.OnClickListener  {
     private var participants: ArrayList<String>? = null
 
     private var groupsCall: Call<ExtractInfo>? = null
+    private var groupInfoCall: Call<GroupResponse>? = null
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -69,7 +70,10 @@ class GroupActivity: ComponentActivity(), View.OnClickListener  {
             .build()
 
         apiInterface = retrofit.create(Api_Interface::class.java)
+        groupId = intent.getStringExtra("GROUP_ID")
+        login = intent.getStringExtra("login")
 
+        /*
         groupId = intent.getStringExtra("GROUP_ID")
         val groupName = intent.getStringExtra("GROUP_NAME")
         val groupDescription = intent.getStringExtra("GROUP_DESCRIPTION")
@@ -86,6 +90,8 @@ class GroupActivity: ComponentActivity(), View.OnClickListener  {
         Log.d("GROUP-MAIN-APP", "login: ${login}")
         Log.d("GROUP-MAIN-APP", "groupId: ${groupId}")
 
+         */
+
         binding.btnAddSpent.setOnClickListener(this)
         binding.btnViewExtract.setOnClickListener(this)
 
@@ -98,6 +104,43 @@ class GroupActivity: ComponentActivity(), View.OnClickListener  {
         // Configurando o Adapter
         val adapterGroup = AdapterExtract(this, listParticipants)
         recyclerViewGroups.adapter = adapterGroup
+
+        // Chamada à API para as infos do grupo
+
+        // Chamada à API para obter todos os grupos
+        groupInfoCall = apiInterface.getInfoGroup(login.toString(), groupId.toString())
+        groupInfoCall?.enqueue(object : Callback<GroupResponse> {
+            override fun onResponse(call: Call<GroupResponse>, response: Response<GroupResponse>) {
+                // Verifica se a Activity ainda está ativa
+                if (isFinishing || isDestroyed) return
+
+                if (response.isSuccessful) {
+                    val groupResponse = response.body()
+                    Log.d("GROUP-MAIN-APP", "$groupResponse")
+                    if (groupResponse != null) {
+                        login = intent.getStringExtra("login")
+                        participants = groupResponse.groups[0].group_participants as ArrayList<String>
+
+
+                        binding.idGroup.text = groupResponse.groups[0].id
+                        binding.nameGroup.text = groupResponse.groups[0].group_name
+                        binding.descriptionGroup.text = groupResponse.groups[0].group_description
+                        binding.partipantsNumberGroup.text = groupResponse.groups[0].group_number_participants.toString()
+                    }
+                } else {
+                    Log.d("GROUP-MAIN-APP", "Erro ao buscar infos do grupos: ${response.message()}")
+                    Toast.makeText(applicationContext, "Erro ao buscar infos do grupos", Toast.LENGTH_SHORT).show()
+                }
+            }
+
+            override fun onFailure(call: Call<GroupResponse>, t: Throwable) {
+                // Verifica se a Activity ainda está ativa
+                if (isFinishing || isDestroyed) return
+
+                Log.d("GROUP-MAIN-APP", "Falha na chamada da API das info group: ${t.localizedMessage}")
+                Toast.makeText(applicationContext, "Falha na chamada da API das info group", Toast.LENGTH_SHORT).show()
+            }
+        })
 
         // Chamada à API para obter todos os grupos
         groupsCall = apiInterface.getExtract(login.toString(), groupId.toString())
