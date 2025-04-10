@@ -50,6 +50,8 @@ class RegisterSpentActivity : ComponentActivity(), View.OnClickListener {
         login = intent.getStringExtra("login")
         participants = intent.getStringArrayListExtra("GROUP_PARTICIPANTS")
 
+        binding.spentNameGroup.text = intent.getStringExtra("GROUP_NAME")
+
         if (groupId != null) {
             Log.d("RegisterSpent-APP", "Group recebido: $groupId")
         } else {

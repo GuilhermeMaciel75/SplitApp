@@ -5,7 +5,7 @@
     android:layout_height="wrap_content"
     android:padding="16dp"
     android:gravity="center_vertical"
-    android:background="#1c1c1c"
+    android:background="@drawable/edit_text_spent_border"
     android:layout_marginBottom="8dp"> <!-- Espaçamento inferior para separar os itens -->
 
     <!-- TextView fixo para o nome do participante -->
@@ -16,7 +16,7 @@
     android:text="Nome do Participante:"
     android:textSize="20sp"
     android:textColor="#E0E0E0"
-    android:layout_marginEnd="16dp"
+    android:layout_marginStart="16dp"
     android:layout_alignParentStart="true" />
 
     <!-- TextView para o valor gasto, permitindo input do usuário -->
@@ -28,7 +28,6 @@
     android:padding="16dp"
     android:textSize="20sp"
     android:textColor="#E0E0E0"
-    android:gravity="end"
-    android:layout_marginEnd="16dp" /> <!-- Margem direita para afastar do final -->
+    android:gravity="end" /> <!-- Margem direita para afastar do final -->
 
     </LinearLayout>
