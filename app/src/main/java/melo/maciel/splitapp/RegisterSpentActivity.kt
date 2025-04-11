@@ -1,5 +1,6 @@
 package melo.maciel.splitapp
 
+import android.app.DatePickerDialog
 import android.content.Intent
 import android.os.Bundle
 import android.text.Editable
@@ -29,6 +30,7 @@ import android.widget.Toast
 import melo.maciel.splitapp.API.API_DATA
 import java.math.BigDecimal
 import java.text.NumberFormat
+import java.util.Calendar
 import java.util.Locale
 
 class RegisterSpentActivity : ComponentActivity(), View.OnClickListener {
@@ -38,6 +40,8 @@ class RegisterSpentActivity : ComponentActivity(), View.OnClickListener {
     private var login: String? = null
     private var groupId: String? = null
     private var participants: ArrayList<String>? = null
+
+    private var selectedDate: Calendar = Calendar.getInstance()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -80,6 +84,8 @@ class RegisterSpentActivity : ComponentActivity(), View.OnClickListener {
         recyclerViewGroups.adapter = adapterGroup
 
         binding.btnSaveSpent.setOnClickListener(this)
+        binding.btnOpenDatePicker.setOnClickListener(this)
+
 
         // Criar um cliente OkHttp que ignora o SSL
         val trustAllCertificates: TrustManager = object : X509TrustManager {
@@ -173,7 +179,32 @@ class RegisterSpentActivity : ComponentActivity(), View.OnClickListener {
                 // Chama a função para registrar o gasto
                 registerSpentPost(postSpent)
             }
+
+            R.id.btn_open_date_picker -> {
+                showDatePickerDialog()
+            }
         }
+    }
+
+    private fun showDatePickerDialog() {
+        val year = selectedDate.get(Calendar.YEAR)
+        val month = selectedDate.get(Calendar.MONTH)
+        val dayOfMonth = selectedDate.get(Calendar.DAY_OF_MONTH)
+
+        val datePickerDialog = DatePickerDialog(
+            this,
+            { _, yearSelected, monthOfYear, dayOfMonthSelected ->
+                selectedDate.set(yearSelected, monthOfYear, dayOfMonthSelected)
+                // Aqui você pode formatar a data selecionada e exibir em algum lugar,
+                // por exemplo, em um EditText ou TextView.
+                val formattedDate = "${dayOfMonthSelected}/${monthOfYear + 1}/$yearSelected"
+                Log.d("DatePicker", "Data selecionada: $formattedDate")
+            },
+            year,
+            month,
+            dayOfMonth
+        )
+        datePickerDialog.show()
     }
 
 

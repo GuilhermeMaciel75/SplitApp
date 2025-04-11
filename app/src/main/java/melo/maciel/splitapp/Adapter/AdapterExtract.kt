@@ -28,7 +28,7 @@ class AdapterExtract(private val context: Context, val extractParticipants: Muta
         val balance = participant.participantBalance
 
         // Formatação do valor com duas casas decimais
-        holder.partipant_value.text = String.format("%.2f", balance)
+        holder.partipant_value.text = "R$ " + String.format("%.2f", balance)
 
         // Verifica se o saldo é negativo ou positivo e muda a cor do texto
         if (balance < 0) {
