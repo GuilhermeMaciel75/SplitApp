@@ -53,4 +53,10 @@ interface Api_Interface {
         @Query("id_group") groupId: String
     ): Call<ExtractInfo>
 
+        @GET("/extract/group")
+    fun getExtractGroup(
+        @Query("loginUser") loginUser: String,
+        @Query("id_group") groupId: String
+    ): Call<HistorySpent>
+
 }

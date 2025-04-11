@@ -69,6 +69,10 @@ data class PostSpent(
     val participants_spent : List<Participant>
 )
 
+data class HistorySpent(
+    val spents: List<PostSpent>
+)
+
 data class ParticipantInfo(
     @SerializedName("participant_name")
     val participantName: String,

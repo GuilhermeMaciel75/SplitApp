@@ -192,7 +192,16 @@ class GroupActivity: ComponentActivity(), View.OnClickListener  {
             }
 
             R.id.btn_view_Extract -> {
-
+                try {
+                    val intent = Intent(this, HistoryExtractActivity::class.java)
+                    intent.putExtra("login", login)
+                    intent.putExtra("GROUP_ID", groupId)
+                    intent.putStringArrayListExtra("GROUP_PARTICIPANTS", participants)
+                    intent.putExtra("GROUP_NAME", binding.nameGroup.text.toString())
+                    startActivity(intent)
+                } catch (e: Exception) {
+                    Log.d("GROUP-MAIN-APP", "Erro ao iniciar a Activity: ${e.localizedMessage}")
+                }
             }
         }
     }
